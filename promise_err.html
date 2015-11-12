@@ -1,0 +1,25 @@
+<script type="text/javascript">
+/*這２個return 都會無法回傳正確的值*/
+function badAsyncCall(value) {
+    var promise = Promise.resolve(value+1);
+    promise.then(function() {
+        // 任意处理
+        return '100';
+    });
+    return promise;
+}
+
+
+function anAsyncCall(value) {
+    var promise = Promise.resolve(value+1);
+    return promise.then(function() {
+        // 任意处理
+        return '100';
+    });
+     
+}
+
+console.log(badAsyncCall(10));//Promise {[[PromiseStatus]]: "resolved", [[PromiseValue]]: 11}
+
+console.log(anAsyncCall(20));//Promise {[[PromiseStatus]]: "pending", [[PromiseValue]]: undefined}
+</script>

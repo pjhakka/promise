@@ -1,0 +1,41 @@
+
+<script type="text/javascript">
+	function taskA(value) {
+		console.log("Task A "+value);
+
+		if(value>50){
+
+			/* 在then中抛出一個reject */
+			return repromise=new Promise(function(resolve,reject){
+				reject(new Error("this promise is rejected"));
+			});
+			
+		}else{
+		return ++value;// 值加1,給下一個.then
+	}
+
+
+
+}
+function taskB(value) {
+	console.log("Task B "+value);
+}
+function onRejected(error) {
+	console.log("Catch Error: A or B ", error);
+}
+function finalTask() {
+	console.log("Final Task");
+}
+
+var promise = new Promise(function(resolve){
+	console.log('start');
+	resolve(60);
+});
+promise
+.then(taskA)
+.then(taskB)
+.catch(onRejected)
+.then(finalTask);
+
+
+</script>
